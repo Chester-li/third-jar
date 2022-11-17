@@ -18,10 +18,10 @@ public class Poker {
     @Getter
     @AllArgsConstructor
     public enum Suit {
-        spade("黑桃"),
-        heart("红桃"),
-        club("梅花"),
-        diamond("方块");
+        spade("♠"),
+        heart("♥"),
+        club("♣"),
+        diamond("♦");
 
         private String desc;
 

@@ -17,12 +17,24 @@ public class Client {
 
     public static void main(String[] args) {
         DeckPoker instance = DeckPoker.getInstance();
-        for (int i = 0; i < 1000; i++) {
+        long number = 0;
+        while (true) {
             List<Integer> shuffle = ShuffleService.shuffle();
-            List<List<Integer>> handout = HandoutService.handout(shuffle, 10);
+            List<List<Integer>> handout = HandoutService.handout(shuffle, 12);
             List<FLUSH> checkResult = instance.check(handout);
             if (CollectionUtils.isNotEmpty(checkResult)) {
                 System.out.println(checkResult);
+            }
+            number++;
+            long flushCount = checkResult.stream().filter(item -> item.getCode() <= FLUSH.FLUSH.getCode()).count();
+            if (flushCount >= 6) {
+                System.out.println("current number : " + number);
+                break;
+            }
+            long boomCount = checkResult.stream().filter(item -> item == FLUSH.BOOM).count();
+            if (boomCount >= 3) {
+                System.out.println("current number : " + number);
+                break;
             }
         }
     }
